@@ -1,0 +1,33 @@
+---
+
+- name: install coturn
+  apt:
+    pkg: coturn
+    state: present
+
+- name: ensure cotrun is enabled
+  lineinfile:
+    dest: /etc/default/coturn
+    line: TURNSERVER_ENABLED=1
+    regexp: "^#?TURNSERVER_ENABLED="
+
+- name: Create parameters for Diffie–Hellman (could take a while)
+  command: "openssl dhparam -out /etc/coturn-dh-{{ coturn_dhparam_length }}.pem {{ coturn_dhparam_length }}"
+  args:
+    creates: /etc/coturn-dh-{{ coturn_dhparam_length }}.pem
+  when: coturn_tls
+  notify: restart coturn
+
+- name: configure coturn
+  template:
+    dest: /etc/turnserver.conf
+    src: turnserver.conf.j2
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart coturn
+
+- name: start coturn
+  service:
+    name: coturn
+    state: started
