@@ -1,23 +1,16 @@
 ---
-dependency:
-  name: galaxy
+scenario:
+  name: default
 driver:
-  name: docker
-lint:
-  name: yamllint
+  name: vagrant
+  provider:
+    name: virtualbox
 platforms:
-  - name: instance
-    image: "geerlingguy/docker-${MOLECULE_DISTRO:-debian10}-ansible:latest"
-    command: ${MOLECULE_DOCKER_COMMAND:-""}
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    privileged: true
-    pre_build_image: true
+  - name: buster64-coturn
+    box: debian/buster64
 provisioner:
   name: ansible
-  lint:
-    name: ansible-lint
-verifier:
-  name: testinfra
-  lint:
-    name: flake8
+  become: True
+lint:
+  name: yamllint
+  enabled: True
