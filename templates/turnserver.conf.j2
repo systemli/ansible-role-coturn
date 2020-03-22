@@ -39,12 +39,12 @@
 # are listening to that endpoint only for "symmetry".
 #
 #alt-listening-port=0
-                             
+
 # Alternative listening port for TLS and DTLS protocols.
 # Default (or zero) value means "TLS listening port plus one".
 #
 #alt-tls-listening-port=0
-    
+
 # Listener IP address of relay server. Multiple listeners can be specified.
 # If no IP(s) specified in the config file or in the command line options, 
 # then all IPv4 and IPv6 system IPs will be used for listening.
@@ -148,11 +148,11 @@
 #
 #min-port=49152
 #max-port=65535
-    
+  
 # Uncomment to run TURN server in 'normal' 'moderate' verbose mode.
 # By default the verbose mode is off.
 #verbose
-    
+
 # Uncomment to run TURN server in 'extra' verbose mode.
 # This mode is very annoying and produces lots of output.
 # Not recommended under any normal circumstances.
@@ -179,7 +179,9 @@ fingerprint
 #no-auth
 
 # TURN REST API flag.
+# (Time Limited Long Term Credential)
 # Flag that sets a special authorization option that is based upon authentication secret.
+# This feature can be used with the long-term authentication mechanism, only.
 # This feature can be used with the long-term authentication mechanism, only.
 # This feature purpose is to support "TURN Server REST API", see
 # "TURN REST API" link in the project's page 
@@ -197,6 +199,22 @@ fingerprint
 # The actual value of the secret is defined either by option static-auth-secret,
 # or can be found in the turn_secret table in the database (see below).
 # 
+# Read more about it:
+#  - https://tools.ietf.org/html/draft-uberti-behave-turn-rest-00
+#  - https://www.ietf.org/proceedings/87/slides/slides-87-behave-10.pdf
+#
+# Be aware that use-auth-secret overrides some part of lt-cred-mech.
+# Notice that this feature depends internally on lt-cred-mech, so if you set
+# use-auth-secret then it enables internally automatically lt-cred-mech option
+# like if you enable both.
+#
+# You can use only one of the to auth mechanisms in the same time because,
+# both mechanism use the username and password validation in different way.
+#
+# This way be aware that you can't use both auth mechnaism in the same time!
+# Use in config either the lt-cred-mech or the use-auth-secret
+# to avoid any confusion.
+#
 use-auth-secret
 
 # 'Static' authentication secret value (a string) for TURN REST API only. 
@@ -276,6 +294,16 @@ static-auth-secret={{ coturn_static_auth_secret }}
 #
 #mysql-userdb="host=<host> dbname=<database-name> user=<database-user> password=<database-user-password> port=<port> connect_timeout=<seconds> read_timeout=<seconds>"
 
+# If you want to use in the MySQL connection string the password in encrypted format,
+# then set in this option the MySQL password encryption secret key file.
+#
+# Warning: If this option is set, then mysql password must be set in "mysql-userdb" in encrypted format! 
+# If you want to use cleartext password then do not set this option!
+#
+# This is the file path which contain secret key of aes encryption while using password encryption.
+#
+#secret-key-file=/path/
+
 # MongoDB database connection string in the case that we are using MongoDB
 # as the user database.
 # This database can be used for long-term credential mechanism
@@ -305,6 +333,9 @@ static-auth-secret={{ coturn_static_auth_secret }}
 # server is not using any database (just the commands-line settings
 # and the userdb file). Must be used with long-term credentials 
 # mechanism or with TURN REST API.
+#
+# Note: If default realm is not specified at all, then realm falls back to the host domain name.
+#       If domain name is empty string, or '(None)', then it is initialized to am empty string.
 #
 realm={{ coturn_realm }}
 
@@ -512,7 +543,7 @@ syslog
 #alternate-server=11.22.33.44:56789
 #alternate-server=5.6.7.8
 #alternate-server=[2001:db8:85a3:8d3:1319:8a2e:370:7348]:3478
-            
+
 # Option to set alternative server for TLS & DTLS services in form of 
 # <ip>:<port>. If the port number is omitted, then the default port 
 # number 5349 for the TLS/DTLS protocols will be used. See the previous 
@@ -537,12 +568,20 @@ syslog
 
 # This is the timestamp/username separator symbol (character) in TURN REST API.
 # The default value is ':'.
-# rest-api-separator=:  
+# rest-api-separator=:	
 
-# Flag that can be used to disallow peers on the loopback addresses (127.x.x.x and ::1).
+# Flag that can be used to allow peers on the loopback addresses (127.x.x.x and ::1).
+# This is an extra security measure.
 # This is an extra security measure.
 #
-#no-loopback-peers
+# (To avoid any security issue that allowing loopback access may raise,
+# the no-loopback-peers option is replaced by allow-loopback-peers.)
+#
+# Allow it only for testing in a development environment! 
+# In production it adds a possible security vulnerability, so for security reasons 
+# it is not allowed using it together with empty cli-password. 
+#
+#allow-loopback-peers
 
 # Flag that can be used to disallow peers on well-known broadcast addresses (224.0.0.0 and above, and FFXX:*).
 # This is an extra security measure.
@@ -582,6 +621,14 @@ no-multicast-peers
 #
 #mobility
 
+# Allocate Address Family according 
+# If enabled then TURN server allocates address family according  the TURN 
+# Client <=> Server communication address family.
+# (By default coTURN works according RFC 6156.)
+# !!Warning: Enabling this option breaks RFC6156 section-4.2 (violates use default IPv4)!!
+#
+#keep-address-family
+
 # User name to run the process. After the initialization, the turnserver process
 # will make an attempt to change the current user ID to that user.
 #
@@ -615,9 +662,28 @@ no-multicast-peers
 #
 #cli-password=$5$79a316b350311570$81df9cfb9af7f5e5a76eada31e7097b663a0670f99a3c07ded3f1c8e59c5658a
 #
-# Or unsecure form for the same paassword:
+# Or unsecure form for the same password:
 #
 #cli-password=qwerty
+
+# Enable Web-admin support on https. By default it is Disabled.
+# If it is enabled it also enables a http a simple static banner page
+# with a small reminder that the admin page is available only on https.
+#
+#web-admin
+
+# Local system IP address to be used for Web-admin server endpoint. Default value is 127.0.0.1.
+#
+#web-admin-ip=127.0.0.1
+
+# Web-admin server port. Default is 8080.
+#
+#web-admin-port=8080
+
+# Web-admin server listen on STUN/TURN worker threads
+# By default it is disabled for security resons! (Not recommended in any production environment!)
+#
+#web-admin-listen-on-workers
 
 # Server relay. NON-STANDARD AND DANGEROUS OPTION. 
 # Only for those applications when we want to run 
