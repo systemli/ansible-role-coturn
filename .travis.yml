@@ -5,14 +5,13 @@ cache: pip
 env:
   matrix:
     - MOLECULE_DISTRO: debian10
-    - MOLECULE_DISTRO: debian9
 
 install:
   # Install test dependencies.
   - pip install molecule docker
 
 script:
-  - molecule test
+  - molecule test -s docker
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
