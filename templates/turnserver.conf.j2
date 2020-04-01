@@ -123,6 +123,11 @@
 #
 #external-ip=60.70.80.91/172.17.19.101
 #external-ip=60.70.80.92/172.17.19.102
+{% if coturn_external_ips is defined %}
+{% for ip in coturn_external_ips %}
+external-ip={{ ip }}
+{% endfor %}
+{% endif %}
 
 
 # Number of the relay threads to handle the established connections
