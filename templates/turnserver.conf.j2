@@ -610,6 +610,9 @@ no-multicast-peers
 # Examples:
 # denied-peer-ip=83.166.64.0-83.166.95.255
 # allowed-peer-ip=83.166.68.45
+{% for ip in coturn_denied_peer_ips %}
+denied-peer-ip={{ ip }}
+{% endfor %}
 
 # File name to store the pid of the process.
 # Default is /var/run/turnserver.pid (if superuser account is used) or
