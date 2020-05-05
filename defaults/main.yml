@@ -1,9 +1,8 @@
 ---
-
 coturn_listening_port: 3478
 coturn_tls_listening_port: 5349
 
-# (D)TLS is currnetly unsupported by Nextcloud Talk and does not have a realy
+# (D)TLS is currently unsupported by Nextcloud Talk and does not have a real
 # security benefit anyway. For further information, see:
 # * https://github.com/coturn/coturn/issues/33
 # * https://github.com/nextcloud/spreed/issues/257
