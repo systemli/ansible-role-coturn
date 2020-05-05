@@ -5,7 +5,7 @@
     pkg: coturn
     state: present
 
-- name: ensure cotrun is enabled
+- name: ensure coturn is enabled
   lineinfile:
     dest: /etc/default/coturn
     line: TURNSERVER_ENABLED=1
