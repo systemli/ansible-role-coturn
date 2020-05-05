@@ -5,6 +5,13 @@
     pkg: coturn
     state: present
 
+- name: Give coturn access to TLS cert
+  user:
+    name: turnserver
+    groups: "{{ coturn_tls_group }}"
+    append: true
+  when: coturn_tls and coturn_tls_group is defined
+
 - name: ensure coturn is enabled
   lineinfile:
     dest: /etc/default/coturn
