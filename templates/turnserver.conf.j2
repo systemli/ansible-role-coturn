@@ -163,6 +163,11 @@ external-ip={{ ip }}
 # Not recommended under any normal circumstances.
 #   
 #Verbose
+{% if coturn_verbosity|int == 1  %}
+verbose
+{% elif coturn_verbosity|int >= 2 %}
+Verbose
+{% endif %}
 
 # Uncomment to use fingerprints in the TURN messages.
 # By default the fingerprints are off.

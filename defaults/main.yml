@@ -27,3 +27,6 @@ coturn_denied_peer_ips:
   - 198.51.100.0-198.51.100.255
   - 203.0.113.0-203.0.113.255
   - 240.0.0.0-255.255.255.255
+
+# 1 for verbose, 2 for Verbose (very verbose)
+coturn_verbosity: 0
