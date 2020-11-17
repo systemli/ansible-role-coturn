@@ -1,6 +1,8 @@
 ansible-role-coturn
 -------------------
-[![Build Status](https://travis-ci.com/systemli/ansible-role-coturn.svg?branch=master)](https://travis-ci.com/systemli/ansible-role-coturn) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-coturn-blue.svg)](https://galaxy.ansible.com/systemli/coturn/)
+
+[![Build Status](https://github.com/systemli/ansible-role-coturn/workflows/Molecule/badge.svg?branch=master)](https://github.com/systemli/ansible-role-coturn/actions?query=workflow%3AIntegration)
+
 
 Install coturn for Nextcloud like described here:
 https://help.nextcloud.com/t/howto-setup-nextcloud-talk-with-turn-server/30794
@@ -19,17 +21,23 @@ Download latest release with `ansible-galaxy`
 
 	ansible-galaxy install systemli.coturn
 
+
+Testing & Development
+---------------------
+
 Tests
 -----
 
-For developing and testing the role we use Travis CI, Molecule and Vagrant. On the local environment you can easily test the role with
+For developing and testing the role we use Github Actions, Molecule, and Vagrant. On the local environment you can easily test the role with
+
+Run local tests with:
 
 ```
-pip install molecule-vagrant ansible-lint
 molecule test
 ```
 
-This requires [Vagrant](https://www.vagrantup.com/downloads.html) to be installed.
+Requires Molecule, Vagrant and `python-vagrant, molecule-goss, molecule-vagrant` to be installed.For developing and testing the role we use Travis CI, Molecule and Vagrant. On the local environment you can easily test the role with
+
 
 License
 -------
