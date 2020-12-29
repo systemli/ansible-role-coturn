@@ -1,7 +1,7 @@
 ansible-role-coturn
 -------------------
 
-[![Build Status](https://github.com/systemli/ansible-role-coturn/workflows/Molecule/badge.svg?branch=master)](https://github.com/systemli/ansible-role-coturn/actions?query=workflow%3AIntegration)
+[![Build Status](https://github.com/systemli/ansible-role-coturn/workflows/Integration/badge.svg?branch=master)](https://github.com/systemli/ansible-role-coturn/actions?query=workflow%3AIntegration)
 
 
 Install coturn for Nextcloud like described here:
