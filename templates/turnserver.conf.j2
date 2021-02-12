@@ -360,13 +360,13 @@ realm={{ coturn_realm }}
 # default value is 0 (no quota, unlimited number of sessions per user).
 # This option can also be set through the database, for a particular realm.
 #
-#user-quota=0
+user-quota={{ coturn_user_quota }}
 
 # Total allocation quota.
 # default value is 0 (no quota).
 # This option can also be set through the database, for a particular realm.
 #
-total-quota=100
+total-quota={{ coturn_total_quota }}
 
 # Max bytes-per-second bandwidth a TURN session is allowed to handle
 # (input and output network streams are treated separately). Anything above
@@ -374,14 +374,14 @@ total-quota=100
 # the available buffer limits).
 # This option can also be set through the database, for a particular realm.
 #
-#max-bps=0
+max-bps={{ coturn_max_bps }}
 
 #
 # Maximum server capacity.
 # Total bytes-per-second bandwidth the TURN server is allowed to allocate
 # for the sessions, combined (input and output network streams are treated separately).
 #
-bps-capacity=0
+bps-capacity={{ coturn_bps_capacity }}
 
 # Uncomment if no UDP client listener is desired.
 # By default UDP client listener is always started.
