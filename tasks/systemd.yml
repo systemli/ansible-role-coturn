@@ -1,0 +1,32 @@
+---
+
+- when: coturn_listening_port < 1024 or coturn_tls_listening_port < 1024
+  block:
+    - name: Systemd drop-in directory present
+      file:
+        state: directory
+        path: /etc/systemd/system/coturn.service.d
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Listening on privileged port granted
+      notify:
+        - reload systemd
+        - restart coturn
+      copy:
+        src: systemd-cap-net-bind-override.conf
+        dest: /etc/systemd/system/coturn.service.d/01-cap-net-bind.conf
+        owner: root
+        group: root
+        mode: 0644
+
+- when: coturn_listening_port >= 1024 and coturn_tls_listening_port >= 1024
+  block:
+    - name: Listening on privileged port not granted
+      notify:
+        - reload systemd
+        - restart coturn
+      file:
+        state: absent
+        path: /etc/systemd/system/coturn.service.d/01-cap-net-bind.conf
