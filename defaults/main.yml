@@ -30,3 +30,28 @@ coturn_denied_peer_ips:
 
 # 1 for verbose, 2 for Verbose (very verbose)
 coturn_verbosity: 0
+
+# Total allocation quota.
+# default value is 0 (no quota).
+#
+# Number of allowed simultaneous connections to the TURN server. Along with
+# max-bps and bps-capacity it can be used to limit the effects of a DoS attack
+# against the TURN server. The value of 0 means unlimited; if a connection
+# limit is desired it should be adjusted depending on your specific setup.
+#
+# see: https://tools.ietf.org/html/rfc8656#section-21.3.1
+coturn_total_quota: 0
+
+# Per-user allocation quota
+# default value is 0 (no quota, unlimited number of sessions per user).
+coturn_user_quota: 0
+
+# Max bytes-per-second bandwidth a TURN session is allowed to handle (input and
+# output network streams are treated separately). Anything above that limit
+# will be dropped or temporary suppressed (within the available buffer limits).
+coturn_max_bps: 0
+
+# Maximum server capacity. Total bytes-per-second bandwidth the TURN server is
+# allowed to allocate for the sessions, combined (input and output network
+# streams are treated separately).
+coturn_bps_capacity: 0
