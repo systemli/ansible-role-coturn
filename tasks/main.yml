@@ -34,6 +34,9 @@
     mode: 0644
   notify: restart coturn
 
+- when: ansible_service_mgr == "systemd"
+  import_tasks: systemd.yml
+
 - name: start coturn
   service:
     name: coturn
