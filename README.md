@@ -12,7 +12,19 @@ This role might be useful in conjunction with [systemli.nextcloud](https://galax
 Role Variables
 --------------
 
-see `defaults/main.yml`
+### Required Variables
+
+The following variables are required (no defaults provided) and must always be
+defined when using the role:
+
+* `coturn_static_auth_secret`: Shared secret for client authentication. One way
+  to generate an appropriate value is by using `pwgen -s 64 1`.
+* `coturn_realm`: Use a syntactically correct hostname or domain.
+
+### Optional Variables
+
+See [defaults/main.yml](defaults/main.yml) for a list of optional variables.
+
 
 Download
 --------
