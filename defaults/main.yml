@@ -48,11 +48,22 @@ coturn_verbosity: 0
 # limit is desired it should be adjusted depending on your specific setup.
 #
 # see: https://tools.ietf.org/html/rfc8656#section-21.3.1
-coturn_total_quota: 0
+#
+# A reasonable default as per the fine people of matrix/synapse is 1200.
+# 100 simultaneous calls with a maximum 12 allocations.
+coturn_total_quota: 1200
 
 # Per-user allocation quota
-# default value is 0 (no quota, unlimited number of sessions per user).
-coturn_user_quota: 0
+#
+# Upstream default value is 0 (no quota, unlimited number of sessions per
+# user).
+#
+# A reasonable default as per the fine people of matrix/synapse is 12:
+# 4 streams per video call, so 12 streams = 3 simultaneous relayed calls per
+# user.
+#
+# see: https://github.com/matrix-org/synapse/blob/develop/docs/turn-howto.md
+coturn_user_quota: 12
 
 # Max bytes-per-second bandwidth a TURN session is allowed to handle (input and
 # output network streams are treated separately). Anything above that limit
