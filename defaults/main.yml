@@ -2,6 +2,9 @@
 coturn_listening_port: 3478
 coturn_tls_listening_port: 5349
 
+# If no IP(s) specified then all IPv4 and IPv6 system IPs will be used for listening.
+coturn_listening_ips: []
+
 # (D)TLS is currently unsupported by Nextcloud Talk and does not have a real
 # security benefit anyway. For further information, see:
 # * https://github.com/coturn/coturn/issues/33
@@ -35,6 +38,7 @@ coturn_denied_peer_ips:
   - 2002::-2002:ffff:ffff:ffff:ffff:ffff:ffff:ffff
   - fc00::-fdff:ffff:ffff:ffff:ffff:ffff:ffff:ffff
   - fe80::-febf:ffff:ffff:ffff:ffff:ffff:ffff:ffff
+coturn_allowed_peer_ips: []
 
 # 1 for verbose, 2 for Verbose (very verbose)
 coturn_verbosity: 0
