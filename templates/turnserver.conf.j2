@@ -49,9 +49,11 @@ listening-port={{ coturn_listening_port }}
 # If no IP(s) specified in the config file or in the command line options, 
 # then all IPv4 and IPv6 system IPs will be used for listening.
 #
-#listening-ip=172.17.19.101
-#listening-ip=10.207.21.238
-#listening-ip=2607:f0d0:1002:51::4
+{% if coturn_listening_ips is defined %}
+{% for ip in coturn_listening_ips %}
+listening-ip={{ ip }}
+{% endfor %}
+{% endif %}
 
 # Auxiliary STUN/TURN server listening endpoint.
 # Aux servers have almost full TURN and STUN functionality.
@@ -617,6 +619,9 @@ no-multicast-peers
 # allowed-peer-ip=83.166.68.45
 {% for ip in coturn_denied_peer_ips %}
 denied-peer-ip={{ ip }}
+{% endfor %}
+{% for ip in coturn_allowed_peer_ips %}
+allowed-peer-ip={{ ip }}
 {% endfor %}
 
 # File name to store the pid of the process.
