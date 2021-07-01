@@ -4,6 +4,7 @@
   apt:
     pkg: coturn
     state: present
+    cache_valid_time: 3600
 
 - name: Give coturn access to TLS cert
   user:
