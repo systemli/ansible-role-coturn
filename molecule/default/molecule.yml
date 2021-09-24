@@ -4,6 +4,8 @@ driver:
   provider:
     name: virtualbox
 platforms:
+  - name: bullseye64-coturn
+    box: debian/bullseye64
   - name: buster64-coturn
     box: debian/buster64
 lint: |
