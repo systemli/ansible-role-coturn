@@ -45,3 +45,7 @@
   service:
     name: coturn
     state: started
+
+- include: goss.yml
+  tags:
+    - goss
