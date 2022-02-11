@@ -38,12 +38,12 @@ listening-port={{ coturn_listening_port }}
 # RFC 5780 is supported only by UDP protocol, other protocols
 # are listening to that endpoint only for "symmetry".
 #
-#alt-listening-port=0
+{% if not coturn_alt_listening_port %}#{% endif %}alt-listening-port={{ alt_listening_port }}
 
 # Alternative listening port for TLS and DTLS protocols.
 # Default (or zero) value means "TLS listening port plus one".
 #
-#alt-tls-listening-port=0
+{% if not coturn_tls or if not coturn_alt_tls_listening_port %}#{% endif %}alt-tls-listening-port={{ coturn_alt_tls_listening_port }}
 
 # Some network setups will require using a TCP reverse proxy in front
 # of the STUN server. If the proxy port option is set a single listener
