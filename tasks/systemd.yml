@@ -1,6 +1,6 @@
 ---
-
-- when: coturn_listening_port|int < 1024 or coturn_tls_listening_port|int < 1024
+- name: Create systemd drop-in
+  when: coturn_listening_port|int < 1024 or coturn_tls_listening_port|int < 1024
   block:
     - name: Systemd drop-in directory present
       file:
@@ -21,7 +21,8 @@
         group: root
         mode: 0644
 
-- when: coturn_listening_port|int >= 1024 and coturn_tls_listening_port|int >= 1024
+- name: Allow listing on privileged ports
+  when: coturn_listening_port|int >= 1024 and coturn_tls_listening_port|int >= 1024
   block:
     - name: Listening on privileged port not granted
       notify:
