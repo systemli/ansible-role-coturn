@@ -45,6 +45,8 @@
     name: coturn
     state: started
 
-- include: goss.yml
+- name: goss
+  include_tasks:
+    file: goss.yml
   tags:
     - goss
