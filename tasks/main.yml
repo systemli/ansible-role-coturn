@@ -1,32 +1,32 @@
 ---
 - name: install coturn
-  apt:
+  ansible.builtin.apt:
     pkg: coturn
     state: present
     cache_valid_time: 3600
 
 - name: Give coturn access to TLS cert
-  user:
+  ansible.builtin.user:
     name: turnserver
     groups: "{{ coturn_tls_group }}"
     append: true
   when: coturn_tls and coturn_tls_group is defined
 
 - name: ensure coturn is enabled
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: /etc/default/coturn
     line: TURNSERVER_ENABLED=1
     regexp: "^#?TURNSERVER_ENABLED="
 
 - name: Create parameters for Diffie–Hellman (could take a while)
-  command: "openssl dhparam -out /etc/coturn-dh-{{ coturn_dhparam_length }}.pem {{ coturn_dhparam_length }}"
+  ansible.builtin.command: "openssl dhparam -out /etc/coturn-dh-{{ coturn_dhparam_length }}.pem {{ coturn_dhparam_length }}"
   args:
     creates: /etc/coturn-dh-{{ coturn_dhparam_length }}.pem
   when: coturn_tls
   notify: restart coturn
 
 - name: configure coturn
-  template:
+  ansible.builtin.template:
     dest: /etc/turnserver.conf
     src: turnserver.conf.j2
     owner: root
@@ -38,15 +38,15 @@
   import_tasks: systemd.yml
 
 - name: reload systemd and restart coturn if necessary
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers
 
 - name: start coturn
-  service:
+  ansible.builtin.service:
     name: coturn
     state: started
 
 - name: goss
-  include_tasks:
+  ansible.builtin.include_tasks:
     file: goss.yml
   tags:
     - goss
