@@ -3,7 +3,7 @@
   when: coturn_listening_port|int < 1024 or coturn_tls_listening_port|int < 1024
   block:
     - name: Systemd drop-in directory present
-      file:
+      ansible.builtin.file:
         state: directory
         path: /etc/systemd/system/coturn.service.d
         owner: root
@@ -14,7 +14,7 @@
       notify:
         - reload systemd
         - restart coturn
-      copy:
+      ansible.builtin.copy:
         src: systemd-cap-net-bind-override.conf
         dest: /etc/systemd/system/coturn.service.d/01-cap-net-bind.conf
         owner: root
@@ -28,6 +28,6 @@
       notify:
         - reload systemd
         - restart coturn
-      file:
+      ansible.builtin.file:
         state: absent
         path: /etc/systemd/system/coturn.service.d/01-cap-net-bind.conf

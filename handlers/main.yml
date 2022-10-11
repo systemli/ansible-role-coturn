@@ -2,10 +2,10 @@
 
 
 - name: reload systemd
-  systemd:
+  ansible.builtin.systemd:
     daemon_reload: true
 
 - name: restart coturn
-  service:
+  ansible.builtin.service:
     name: coturn
     state: restarted
