@@ -1,5 +1,4 @@
 ---
-
 - name: Check is goss test directory exists
   ansible.builtin.stat:
     path: "{{ goss_test_directory }}"
