@@ -7,6 +7,3 @@ updates:
       interval: "weekly"
       time: "09:00"
       timezone: "Europe/Berlin"
-    ignore:
-      - dependency-name: "*"
-        update-types: ["version-update:semver-patch"]
