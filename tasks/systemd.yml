@@ -8,26 +8,26 @@
         path: /etc/systemd/system/coturn.service.d
         owner: root
         group: root
-        mode: 0755
+        mode: "0755"
 
     - name: Listening on privileged port granted
-      notify:
-        - reload systemd
-        - restart coturn
       ansible.builtin.copy:
         src: systemd-cap-net-bind-override.conf
         dest: /etc/systemd/system/coturn.service.d/01-cap-net-bind.conf
         owner: root
         group: root
-        mode: 0644
+        mode: "0644"
+      notify:
+        - Reload systemd
+        - Restart coturn
 
 - name: Allow listing on privileged ports
   when: coturn_listening_port|int >= 1024 and coturn_tls_listening_port|int >= 1024
   block:
     - name: Listening on privileged port not granted
-      notify:
-        - reload systemd
-        - restart coturn
       ansible.builtin.file:
-        state: absent
         path: /etc/systemd/system/coturn.service.d/01-cap-net-bind.conf
+        state: absent
+      notify:
+        - Reload systemd
+        - Restart coturn

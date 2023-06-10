@@ -1,5 +1,5 @@
 ---
-- name: install coturn
+- name: Install coturn
   ansible.builtin.apt:
     pkg: coturn
     state: present
@@ -12,7 +12,7 @@
     append: true
   when: coturn_tls and coturn_tls_group is defined
 
-- name: ensure coturn is enabled
+- name: Enable /etc/default/coturn
   ansible.builtin.lineinfile:
     dest: /etc/default/coturn
     line: TURNSERVER_ENABLED=1
@@ -23,30 +23,30 @@
   args:
     creates: /etc/coturn-dh-{{ coturn_dhparam_length }}.pem
   when: coturn_tls
-  notify: restart coturn
+  notify: Restart coturn
 
-- name: configure coturn
+- name: Copy coturn config
   ansible.builtin.template:
     dest: /etc/turnserver.conf
     src: turnserver.conf.j2
     owner: root
     group: root
     mode: 0644
-  notify: restart coturn
+  notify: Restart coturn
 
-- name: systemd tasks
+- name: Include systemd tasks
   ansible.builtin.import_tasks: systemd.yml
   when: ansible_service_mgr == "systemd"
 
-- name: reload systemd and restart coturn if necessary
+- name: Reload systemd and restart coturn if necessary
   ansible.builtin.meta: flush_handlers
 
-- name: start coturn
+- name: Start coturn
   ansible.builtin.service:
     name: coturn
     state: started
 
-- name: goss
+- name: Include goss tasks
   ansible.builtin.include_tasks:
     file: goss.yml
   tags:
