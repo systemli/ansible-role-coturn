@@ -5,9 +5,17 @@ port:
 {% if coturn_tls %}
   tcp:{{ coturn_tls_listening_port }}:
     listening: true
+{% if not coturn_no_rfc5780 %}
+  tcp:{{ coturn_tls_listening_port|int + 1 }}:
+    listening: true
+{% endif %}
 {% endif %}
   udp:{{ coturn_listening_port }}:
     listening: true
+{% if not coturn_no_rfc5780 %}
+  udp:{{ coturn_listening_port|int + 1 }}:
+    listening: true
+{% endif %}
 service:
   coturn:
     enabled: true
