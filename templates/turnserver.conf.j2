@@ -800,7 +800,7 @@ no-tlsv1_1
 # Strongly encouraged to use this option to decrease gain factor in STUN
 # binding responses.
 #
-no-rfc5780
+{% if not coturn_no_rfc5780 %}#{% endif %}no-rfc5780
 
 # Disable handling old STUN Binding requests and disable MAPPED-ADDRESS
 # attribute in binding response (use only the XOR-MAPPED-ADDRESS).
@@ -808,7 +808,7 @@ no-rfc5780
 # Strongly encouraged to use this option to decrease gain factor in STUN
 # binding responses.
 #
-no-stun-backward-compatibility
+{% if not coturn_no_stun_backward_compability %}#{% endif %}no-stun-backward-compatibility
 
 # Only send RESPONSE-ORIGIN attribute in binding response if RFC5780 is enabled.
 #
