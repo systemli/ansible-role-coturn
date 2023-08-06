@@ -5,12 +5,8 @@ port:
 {% if coturn_tls %}
   tcp:{{ coturn_tls_listening_port }}:
     listening: true
-  tcp:{{ coturn_listening_port|int + 1 }}:
-    listening: true
 {% endif %}
   udp:{{ coturn_listening_port }}:
-    listening: true
-  udp:{{ coturn_listening_port|int + 1 }}:
     listening: true
 service:
   coturn:
