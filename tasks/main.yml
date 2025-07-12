@@ -22,7 +22,9 @@
   ansible.builtin.command: "openssl dhparam -out /etc/coturn-dh-{{ coturn_dhparam_length }}.pem {{ coturn_dhparam_length }}"
   args:
     creates: /etc/coturn-dh-{{ coturn_dhparam_length }}.pem
-  when: coturn_tls
+  when:
+    - coturn_tls
+    - not coturn_tls_strengh == "modern"
   notify: Restart coturn
 
 - name: Copy coturn config

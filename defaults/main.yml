@@ -18,6 +18,8 @@ coturn_listening_ips: []
 coturn_tls: False
 coturn_tls_cert: /usr/local/etc/turn_server_cert.pem
 coturn_tls_key: /usr/local/etc/turn_server_pkey.pem
+# They can be "modern" or "intermediate". Design copied from SSL Configuration Generator from mozilla
+coturn_tls_strengh: "intermediate"
 
 coturn_dhparam_length: 2048
 
