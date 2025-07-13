@@ -789,7 +789,7 @@ no-sslv2
 no-sslv3
 no-tlsv1
 no-tlsv1_1
-{% if coturn_tls_strengh == "intermediate" %}#{% else %}no-tlsv1_2{% endif %}
+{% if coturn_tls_strengh == "intermediate" %}#{% endif %}no-tlsv1_2
 
 # Disable RFC5780 (NAT behavior discovery).
 #
