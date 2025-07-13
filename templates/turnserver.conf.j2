@@ -491,7 +491,7 @@ stale-nonce
 #
 # generated 2021-10-20, Mozilla Guideline v5.6, HAProxy 2.1, OpenSSL 1.1.1k, intermediate configuration
 # https://ssl-config.mozilla.org/#server=haproxy&version=2.1&config=intermediate&openssl=1.1.1k&guideline=5.6
-{% if not coturn_tls or if coturn_tls_strengh == "modern" %}#{% endif %}cipher-list="ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384"
+{% if not coturn_tls or coturn_tls_strengh == "modern" %}#{% endif %}cipher-list="ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384"
 
 # CA file in OpenSSL format.
 # Forces TURN server to verify the client SSL certificates.
@@ -520,7 +520,7 @@ stale-nonce
 # Use custom DH TLS key, stored in PEM format in the file.
 # Flags --dh566 and --dh1066 are ignored when the DH key is taken from a file.
 #
-{% if not coturn_tls or if coturn_tls_strengh == "modern" %}#{% endif %}dh-file=/etc/coturn-dh-{{ coturn_dhparam_length }}.pem
+{% if not coturn_tls or coturn_tls_strengh == "modern" %}#{% endif %}dh-file=/etc/coturn-dh-{{ coturn_dhparam_length }}.pem
 
 # Flag to prevent stdout log messages.
 # By default, all log messages go to both stdout and to
