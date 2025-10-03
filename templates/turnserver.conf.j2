@@ -1,3 +1,6 @@
+{% if __jitsi_meet_installed is defined %}
+# jitsi-meet coturn config. Do not modify this line
+{% endif %}
 # Coturn TURN SERVER configuration file
 #
 # Boolean values note: where a boolean value is supposed to be used,
@@ -53,6 +56,9 @@ listening-port={{ coturn_listening_port }}
 #
 #tcp-proxy-port=5555
 
+{% if __jitsi_meet_installed is defined %}
+# jitsi-meet coturn relay disable config. Do not modify this line
+{% endif %}
 # Listener IP address of relay server. Multiple listeners can be specified.
 # If no IP(s) specified in the config file or in the command line options,
 # then all IPv4 and IPv6 system IPs will be used for listening.
