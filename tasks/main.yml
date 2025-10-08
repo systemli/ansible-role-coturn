@@ -25,6 +25,15 @@
   when: coturn_tls
   notify: Restart coturn
 
+- name: Gather package facts
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: Check whether jitsi-meet is installed
+  ansible.builtin.set_fact:
+    __jitsi_meet_installed: true
+  when: "'jitsi-meet' in ansible_facts.packages"
+
 - name: Copy coturn config
   ansible.builtin.template:
     dest: /etc/turnserver.conf
