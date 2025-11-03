@@ -1,8 +1,8 @@
 ---
 - name: Prepare
   hosts: all
-  become: True
+  become: yes
   tasks:
     - name: Run the equivalent of "apt-get update" before installing packages
-      apt:
+      ansible.builtin.apt:
         update_cache: yes

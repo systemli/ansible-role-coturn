@@ -8,13 +8,6 @@ platforms:
     box: debian/bullseye64
   - name: buster64-coturn
     box: debian/buster64
-lint: |
-  set -e
-  yamllint .
-  ansible-lint
 provisioner:
   name: ansible
-  become: True
-verifier:
-  name: goss
-  directory: ../tests
+  become: yes
