@@ -54,9 +54,3 @@
   ansible.builtin.service:
     name: coturn
     state: started
-
-- name: Include goss tasks
-  ansible.builtin.include_tasks:
-    file: goss.yml
-  tags:
-    - goss
