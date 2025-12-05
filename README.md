@@ -37,7 +37,7 @@ Download latest release with `ansible-galaxy`
 Testing & Development
 ---------------------
 
-For developing and testing the role we use Github Actions, Molecule, and Vagrant. On the local environment you can easily test the role with
+For developing and testing the role we use Github Actions and Molecule. On the local environment you can easily test the role with
 
 ```
 molecule test

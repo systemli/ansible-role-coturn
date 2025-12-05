@@ -6,4 +6,4 @@
     - role: ansible-role-coturn
   vars:
     coturn_static_auth_secret: just_a_test
-    coturn_realm: example.org
+    coturn_realm: mycompany.org
