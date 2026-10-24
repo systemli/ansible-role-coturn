@@ -1,0 +1,121 @@
+---
+argument_specs:
+  main:
+    short_description: Install and configure the coturn TURN/STUN server
+    description:
+      - Installs coturn and configures it with a static auth secret (TURN REST API).
+    options:
+      coturn_static_auth_secret:
+        type: str
+        required: true
+        description:
+          - Shared secret for client authentication.
+      coturn_realm:
+        type: str
+        required: true
+        description:
+          - Realm, a syntactically correct hostname or domain.
+      coturn_listening_port:
+        type: int
+        default: 3478
+      coturn_alt_listening_port:
+        type: int
+        description:
+          - Requires C(coturn_no_rfc5780=false).
+      coturn_tls_listening_port:
+        type: int
+        default: 5349
+      coturn_alt_tls_listening_port:
+        type: int
+        description:
+          - Only used if C(coturn_tls) is true.
+      coturn_no_rfc5780:
+        type: bool
+        default: true
+      coturn_no_stun_backward_compability:
+        type: bool
+        default: true
+      coturn_listening_ips:
+        type: list
+        elements: str
+        description:
+          - IPs to listen on. If empty, all IPv4 and IPv6 system IPs are used.
+        default: []
+      coturn_external_ips:
+        type: list
+        elements: str
+        description:
+          - External IPs of the server (when behind NAT). Optional.
+      coturn_tls:
+        type: bool
+        description:
+          - Enable (D)TLS.
+        default: false
+      coturn_tls_cert:
+        type: path
+        default: /usr/local/etc/turn_server_cert.pem
+      coturn_tls_key:
+        type: path
+        default: /usr/local/etc/turn_server_pkey.pem
+      coturn_tls_group:
+        type: str
+        description:
+          - Group the coturn user is added to (to read the TLS key). Only used if C(coturn_tls) is true.
+      coturn_dhparam_length:
+        type: int
+        default: 2048
+      coturn_denied_peer_ips:
+        type: list
+        elements: str
+        default:
+          - 0.0.0.0-0.255.255.255
+          - 10.0.0.0-10.255.255.255
+          - 100.64.0.0-100.127.255.255
+          - 127.0.0.0-127.255.255.255
+          - 169.254.0.0-169.254.255.255
+          - 172.16.0.0-172.31.255.255
+          - 192.0.0.0-192.0.0.255
+          - 192.0.2.0-192.0.2.255
+          - 192.88.99.0-192.88.99.255
+          - 192.168.0.0-192.168.255.255
+          - 198.18.0.0-198.19.255.255
+          - 198.51.100.0-198.51.100.255
+          - 203.0.113.0-203.0.113.255
+          - 240.0.0.0-255.255.255.255
+          - ::1
+          - 64:ff9b::-64:ff9b::ffff:ffff
+          - ::ffff:0.0.0.0-::ffff:255.255.255.255
+          - 100::-100::ffff:ffff:ffff:ffff
+          - 2001::-2001:1ff:ffff:ffff:ffff:ffff:ffff:ffff
+          - 2002::-2002:ffff:ffff:ffff:ffff:ffff:ffff:ffff
+          - fc00::-fdff:ffff:ffff:ffff:ffff:ffff:ffff:ffff
+          - fe80::-febf:ffff:ffff:ffff:ffff:ffff:ffff:ffff
+      coturn_allowed_peer_ips:
+        type: list
+        elements: str
+        default: []
+      coturn_verbosity:
+        type: int
+        description:
+          - 0 for quiet, 1 for verbose, 2 for very verbose.
+        default: 0
+      coturn_total_quota:
+        type: int
+        description:
+          - Total allocation quota (0 means no quota).
+        default: 1200
+      coturn_user_quota:
+        type: int
+        description:
+          - Per-user allocation quota (0 means no quota).
+        default: 12
+      coturn_max_bps:
+        type: int
+        description:
+          - Maximum bytes per second a TURN session may handle.
+        default: 0
+      coturn_bps_capacity:
+        type: int
+        description:
+          - Maximum total bytes per second the server allocates to sessions.
+        default: 0
