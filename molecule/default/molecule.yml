@@ -3,8 +3,8 @@ driver:
   name: docker
 
 platforms:
-  - name: debian13
-    image: "geerlingguy/docker-debian13-ansible:latest"
+  - name: instance
+    image: "geerlingguy/docker-${MOLECULE_DISTRO:-debian13}-ansible:latest"
     command: ""
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
@@ -17,8 +17,3 @@ provisioner:
   name: ansible
   ansible_args:
     - --diff
-
-dependency:
-  name: galaxy
-  options:
-    requirements-file: requirements.yml

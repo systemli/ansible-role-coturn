@@ -37,11 +37,17 @@ Download latest release with `ansible-galaxy`
 Testing & Development
 ---------------------
 
-For developing and testing the role we use Github Actions and Molecule. On the local environment you can easily test the role with
+For developing and testing the role we use GitHub Actions and Molecule with the
+Docker driver. The role supports Debian 12 (bookworm) and Debian 13 (trixie).
+CI runs `molecule test` against both. Locally you need Docker or Podman,
+`molecule`, `molecule-plugins[docker]` and `ansible-lint`. Run the test with
 
 ```
 molecule test
 ```
+
+The scenario uses Debian 13 by default; select another distribution with
+`MOLECULE_DISTRO=debian12 molecule test`.
 
 License
 -------
