@@ -4,7 +4,7 @@ galaxy_info:
   author: systemli
   description: Install and configure Coturn on Debian
   license: GPLv3
-  min_ansible_version: "2.4"
+  min_ansible_version: "2.14"
   platforms:
     - name: Debian
       versions:

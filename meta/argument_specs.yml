@@ -1,0 +1,83 @@
+---
+argument_specs:
+  main:
+    short_description: Install and configure the coturn TURN/STUN server
+    description:
+      - Installs coturn and configures it with a static auth secret (TURN REST API).
+    options:
+      coturn_static_auth_secret:
+        type: str
+        required: true
+        description:
+          - Shared secret for client authentication.
+      coturn_realm:
+        type: str
+        required: true
+        description:
+          - Realm, a syntactically correct hostname or domain.
+      coturn_listening_port:
+        type: int
+      coturn_alt_listening_port:
+        type: int
+        description:
+          - Requires C(coturn_no_rfc5780=false).
+      coturn_tls_listening_port:
+        type: int
+      coturn_alt_tls_listening_port:
+        type: int
+        description:
+          - Only used if C(coturn_tls) is true.
+      coturn_no_rfc5780:
+        type: bool
+      coturn_no_stun_backward_compability:
+        type: bool
+      coturn_listening_ips:
+        type: list
+        elements: str
+        description:
+          - IPs to listen on. If empty, all IPv4 and IPv6 system IPs are used.
+      coturn_external_ips:
+        type: list
+        elements: str
+        description:
+          - External IPs of the server (when behind NAT). Optional.
+      coturn_tls:
+        type: bool
+        description:
+          - Enable (D)TLS.
+      coturn_tls_cert:
+        type: path
+      coturn_tls_key:
+        type: path
+      coturn_tls_group:
+        type: str
+        description:
+          - Group the coturn user is added to (to read the TLS key). Only used if C(coturn_tls) is true.
+      coturn_dhparam_length:
+        type: int
+      coturn_denied_peer_ips:
+        type: list
+        elements: str
+      coturn_allowed_peer_ips:
+        type: list
+        elements: str
+      coturn_verbosity:
+        type: int
+        description:
+          - 0 for quiet, 1 for verbose, 2 for very verbose.
+      coturn_total_quota:
+        type: int
+        description:
+          - Total allocation quota (0 means no quota).
+      coturn_user_quota:
+        type: int
+        description:
+          - Per-user allocation quota (0 means no quota).
+      coturn_max_bps:
+        type: int
+        description:
+          - Maximum bytes per second a TURN session may handle.
+      coturn_bps_capacity:
+        type: int
+        description:
+          - Maximum total bytes per second the server allocates to sessions.
