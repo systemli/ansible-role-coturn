@@ -13,8 +13,7 @@ Ansible role that installs and configures the coturn TURN server (for Nextcloud 
 
 ## Checks
 
-- `ansible-lint .` must pass without warnings (config in `.ansible-lint`, which excludes `molecule/` and `.github/`)
-- `yamllint .` uses `.yamllint`
+- `ansible-lint .` must pass without warnings (default configuration, no repo-specific config)
 - `molecule test` runs the role in a container; CI runs it on Debian 12 and 13 via `systemli/github-ansible-workflow`
 - `ansible-lint` creates `.ansible/`; it is git ignored, never commit it
 

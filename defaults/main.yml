@@ -1,12 +1,12 @@
 ---
 coturn_listening_port: 3478
 # The alt listening ports require `coturn_no_rfc5780: False`
-#coturn_alt_listening_port:
+# coturn_alt_listening_port:
 coturn_tls_listening_port: 5349
-#coturn_alt_tls_listening_port:
+# coturn_alt_tls_listening_port:
 
-coturn_no_rfc5780: True
-coturn_no_stun_backward_compability: True
+coturn_no_rfc5780: true
+coturn_no_stun_backward_compability: true
 
 # If no IP(s) specified then all IPv4 and IPv6 system IPs will be used for listening.
 coturn_listening_ips: []
@@ -15,7 +15,7 @@ coturn_listening_ips: []
 # security benefit anyway. For further information, see:
 # * https://github.com/coturn/coturn/issues/33
 # * https://github.com/nextcloud/spreed/issues/257
-coturn_tls: False
+coturn_tls: false
 coturn_tls_cert: /usr/local/etc/turn_server_cert.pem
 coturn_tls_key: /usr/local/etc/turn_server_pkey.pem
 
